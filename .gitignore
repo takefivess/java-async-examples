@@ -1,0 +1,48 @@
+# .gitignore
+# IDE - IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# IDE - Visual Studio Code
+.vscode/
+.history/
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+
+# 빌드 디렉토리
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+
+# Maven
+.m2/
+dependency-reduced-pom.xml
+
+# 로그 파일
+*.log
+logs/
+
+# 운영 체제
+.DS_Store
+Thumbs.db
+
+# 임시 파일
+*.swp
+*.swo
+*~
+.#*
+
+# JVM
+.jdtcore.prefs
+
+# 환경 변수
+.env
+.env.local
