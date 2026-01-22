@@ -51,6 +51,23 @@ java-async-examples/
 
 ## 각 버전별 주요 특징
 
+### Spring Framework: @Async 어노테이션
+
+```java
+// 간단한 @Async 메서드
+@Async
+public CompletableFuture<String> asyncTask(String id) {
+    return CompletableFuture.completedFuture("결과");
+}
+```
+
+**특징**:
+- 메서드 레벨의 비동기 처리
+- 별도의 스레드 풀에서 실행
+- CompletableFuture, AsyncResult, ListenableFuture 반환 가능
+- 자동 리소스 관리
+- 예외 처리 용이
+
 ### Java 5-7: Thread 기반 멀티스레딩
 
 ```java
@@ -231,16 +248,65 @@ Structured Concurrency를 이용한 안전한 동시성:
 - 예외 처리 개선
 - 리소스 자동 해제
 
+### 7. Spring Framework 예제: @Async
+
+**파일**: `spring/SpringAsyncExample.java`, `spring/AsyncTaskService.java`
+
+Spring Framework의 @Async 어노테이션을 이용한 비동기 처리:
+- 간단한 @Async 메서드
+- CompletableFuture 반환
+- AsyncResult 반환
+- ListenableFuture 반환
+- 병렬 비동기 작업 처리
+- 예외 처리
+- 작업 체이닝
+
+### 8. Spring MVC 웹 요청 비동기 처리
+
+**파일**: `spring/AsyncWebController.java`
+
+Spring MVC의 비동기 웹 요청 처리:
+- DeferredResult를 이용한 비동기 응답
+- Callable을 이용한 자동 스레드 풀 처리
+- CompletableFuture 반환
+- WebAsyncTask로 타임아웃 및 콜백 처리
+
 ## 성능 비교
 
 각 접근 방식의 성능 특성:
 
-| 방식 | 처리량 | 지연시간 | 메모리 | 복잡도 |
-|------|--------|---------|--------|--------|
-| Thread | 낮음 | 높음 | 높음 | 높음 |
-| CompletableFuture | 중간 | 중간 | 중간 | 중간 |
-| Reactive | 높음 | 낮음 | 중간 | 높음 |
-| Virtual Threads | 매우높음 | 매우낮음 | 낮음 | 낮음 |
+| 방식 | 처리량 | 지연시간 | 메모리 | 복잡도 | 학습곡선 |
+|------|--------|---------|--------|--------|---------|
+| Thread | 낮음 | 높음 | 높음 | 높음 | 낮음 |
+| CompletableFuture | 중간 | 중간 | 중간 | 중간 | 중간 |
+| Reactive | 높음 | 낮음 | 중간 | 높음 | 높음 |
+| Virtual Threads | 매우높음 | 매우낮음 | 낮음 | 낮음 | 낮음 |
+| Spring @Async | 중간 | 중간 | 중간 | 낮음 | 낮음 |
+
+## Spring Framework의 장점
+
+### @Async vs 다른 방식
+
+**Spring @Async의 장점**:
+- 선언적 프로그래밍 (코드 간결함)
+- Spring의 다양한 기능 통합 (AOP, 의존성 주입 등)
+- 기존 코드에 추가하기 쉬움
+- 커스텀 Executor 설정 가능
+
+**사용 사례**:
+- 웹 요청 처리 중 오래 걸리는 작업을 비동기로 분리
+- 이메일 발송, 로그 기록 등 Background 작업
+- 외부 API 호출
+- 캐시 업데이트
+
+### Spring MVC 비동기 웹 요청 처리
+
+| 기능 | 사용 사례 | 복잡도 |
+|------|---------|--------|
+| DeferredResult | 복잡한 비동기 로직 | 중간 |
+| Callable | 간단한 블로킹 작업 | 낮음 |
+| CompletableFuture | 체이닝된 작업 | 중간 |
+| WebAsyncTask | 타임아웃 제어 필요 | 중간 |
 
 ## 테스트 실행
 
